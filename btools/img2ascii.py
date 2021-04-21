@@ -1,6 +1,9 @@
 #!/usr/bin/env python3
 """
-Converts an image to ASCII art
+Converts an image to ASCII art.
+
+Currently only does this via ImageMagick's XPM conversion, but I have plans to
+add further methods at some point.
 """
 import argparse
 import io
@@ -23,12 +26,12 @@ def main(argv=None):
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument(
         "input",
-        type=argparse.FileType('r'),
+        type=argparse.FileType("r"),
         help="Path to input image file",
     )
     parser.add_argument(
         "output",
-        nargs='?',
+        nargs="?",
         type=argparse.FileType("wb"),
         default=sys.stdout,
         help=("Path to output file. If unspecified, uses stdout."),
@@ -57,8 +60,6 @@ def main(argv=None):
         default=2,
         help="The number of colors to use.",
     )
-
-
 
     # Set logging verbosity
     verbosity = parser.add_mutually_exclusive_group()
@@ -105,7 +106,6 @@ def main(argv=None):
     else:
         raise ValueError(f"Unknown backend provided: {args.backend}")
 
-
     # Create output
     result = __func(input_path, **kwargs)
 
@@ -120,10 +120,10 @@ def img2ascii_imagemagick(input_path, geometry="160x160", negate=True, ncolors=2
     See: https://imagemagick.org/script/command-line-processing.php
     """
     # Look for the ImageMagick binary
-    if (exec_path := shutil.which('magick')) is not None:
+    if (exec_path := shutil.which("magick")) is not None:
         logger.debug(f"Using `{exec_path}` for ImageMagick")
         cmd = [exec_path, "convert"]
-    elif (exec_path := shutil.which('convert')) is not None:
+    elif (exec_path := shutil.which("convert")) is not None:
         logger.debug(f"Using `{exec_path}` for ImageMagick")
         cmd = [exec_path]
     else:
@@ -139,8 +139,10 @@ def img2ascii_imagemagick(input_path, geometry="160x160", negate=True, ncolors=2
     ]
 
     # Run the command -- I can't find a way to do this w/o `shell=True`
-    result = subprocess.run(" ".join([*cmd, *args]), capture_output=True, timeout=10, shell=True)
-    output = result.stdout.decode('utf-8')
+    result = subprocess.run(
+        " ".join([*cmd, *args]), capture_output=True, timeout=10, shell=True
+    )
+    output = result.stdout.decode("utf-8")
 
     # TODO: Maybe process header since it gives some info
     ret = []
@@ -170,6 +172,8 @@ def img2ascii_jp2a():
     See also:
         - https://csl.name/jp2a/
     """
+    raise NotImplementedError()
+
 
 if __name__ == "__main__":
     main()
