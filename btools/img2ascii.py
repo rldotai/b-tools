@@ -4,6 +4,12 @@ Converts an image to ASCII art.
 
 Currently only does this via ImageMagick's XPM conversion, but I have plans to
 add further methods at some point.
+
+For example:
+    - [`pbmtoascii`](http://netpbm.sourceforge.net/doc/pbmtoascii.html)
+    - [`jp2a`](https://csl.name/jp2a/)
+    - [`AAlib`](https://en.wikipedia.org/wiki/AAlib)
+    - [`libcaca`](https://en.wikipedia.org/wiki/Libcaca)
 """
 import argparse
 import io
