@@ -7,6 +7,7 @@ import sys
 
 
 def get_version() -> str:
+    """Return the version of the package."""
     from importlib import metadata
     return metadata.version(__package__)
 
