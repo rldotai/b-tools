@@ -1,0 +1,28 @@
+[project]
+name = "b-tools"
+version = "0.2.0"
+description = ""
+authors = [
+    {name = "rldotai", email = "rldotai@users.noreply.github.com"},
+]
+dependencies = ["python-magic>=0.4.22"]
+requires-python = ">=3.9"
+license = {text = "None"}
+
+[project.urls]
+homepage = ""
+
+[project.scripts]
+"conda-tool" = "b_tools.conda_utilities:export_env_cli"
+"img2ascii" = "b_tools.img2ascii:main"
+
+[tool]
+[tool.pdm]
+[[tool.pdm.source]]
+name = "pypi"
+url = "https://pypi.org/simple"
+verify_ssl = true
+
+[build-system]
+requires = ["pdm-pep517", "setuptools", "wheel"]
+build-backend = "pdm.pep517.api"
